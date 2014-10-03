@@ -1,0 +1,42 @@
+CREATE TABLE SETOR (
+    id_setor INTEGER AUTO_INCREMENT PRIMARY KEY,
+    nome_setor VARCHAR NOT NULL,
+    telefone_setor VARCHAR NOT NULL
+);
+
+CREATE TABLE FUNCAO (
+    id_funcao INTEGER AUTO_INCREMENT PRIMARY KEY,
+    nome_funcao VARCHAR NOT NULL
+);
+
+CREATE TABLE ESTADO (
+    id_estado INTEGER AUTO_INCREMENT PRIMARY KEY,
+    nome_estado VARCHAR NOT NULL
+);
+
+CREATE TABLE CIDADE (
+    id_cidade INTEGER AUTO_INCREMENT PRIMARY KEY,
+    nome_cidade VARCHAR NOT NULL,
+    id_estado INTEGER NOT NULL ADD CONSTRAINT fk_cidade_estado FOREIGN KEY (id_estado) REFERENCES ESTADO(id_estado)
+);
+
+CREATE TABLE EMPRESA (
+    id_empresa INTEGER AUTO_INCREMENT PRIMARY KEY,
+    nome_empresa VARCHAR NOT NULL,
+    endereco_empresa VARCHAR NOT NULL,
+    telefone_empresa VARCHAR NOT NULL,
+    id_estado INTEGER NOT NULL ADD CONSTRAINT fk_empresa_estado FOREIGN KEY (id_estado) REFERENCES ESTADO(id_estado),
+    id_cidade INTEGER NOT NULL ADD CONSTRAINT fk_empresa_cidade FOREIGN KEY (id_cidade) REFERENCES CIDADE(id_cidade)
+);
+
+CREATE TABLE FUNCIONARIO (
+    cpf_funcionario INTEGER AUTO_INCREMENT PRIMARY KEY,
+    nome_funcionario VARCHAR NOT NULL,
+    telefone_funcionario VARCHAR NOT NULL,
+    datanascimento_funcionario DATE NOT NULL,
+    id_funcao INTEGER NOT NULL ADD CONSTRAINT fk_funcionario_funcao FOREIGN KEY (id_funcao) REFERENCES FUNCAO(id_funcao),
+    id_setor INTEGER NOT NULL ADD CONSTRAINT fk_funcionario_setor FOREIGN KEY (id_setor) REFERENCES SETOR(id_setor),
+    id_estado INTEGER NOT NULL ADD CONSTRAINT fk_funcionario_estado FOREIGN KEY (id_estado) REFERENCES ESTADO(id_estado),
+    id_cidade INTEGER NOT NULL ADD CONSTRAINT fk_funcionario_cidade FOREIGN KEY (id_cidade) REFERENCES CIDADE(id_cidade),
+    id_empresa INTEGER NOT NULL ADD CONSTRAINT fk_funcionario_empresa FOREIGN KEY (id_empresa) REFERENCES EMPRESA(id_empresa)       
+);
