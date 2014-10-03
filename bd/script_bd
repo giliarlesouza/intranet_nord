@@ -2,24 +2,24 @@ CREATE TABLE SETOR (
     id_setor INTEGER PRIMARY KEY NOT NULL,
     nome_setor VARCHAR(30) NOT NULL,
     telefone_setor VARCHAR(30) NOT NULL
-)
+);
 
 CREATE TABLE FUNCAO (
     id_funcao INTEGER PRIMARY KEY NOT NULL,
     nome_funcao VARCHAR(30) NOT NULL
-)
+);
 
 CREATE TABLE ESTADO (
     id_estado INTEGER PRIMARY KEY NOT NULL,
     nome_estado VARCHAR(30) NOT NULL
-)
+);
 
 CREATE TABLE CIDADE (
     id_cidade INTEGER PRIMARY KEY NOT NULL,
     nome_cidade VARCHAR(30) NOT NULL,
     id_estado INTEGER NOT NULL,
     CONSTRAINT fk_cidade_estado FOREIGN KEY (id_estado) REFERENCES ESTADO(id_estado)
-)
+);
 
 CREATE TABLE EMPRESA (
     id_empresa INTEGER  PRIMARY KEY NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE EMPRESA (
     id_cidade INTEGER NOT NULL,
     CONSTRAINT fk_empresa_estado FOREIGN KEY (id_estado) REFERENCES ESTADO(id_estado),
     CONSTRAINT fk_empresa_cidade FOREIGN KEY (id_cidade) REFERENCES CIDADE(id_cidade)
-)
+);
 
 CREATE TABLE FUNCIONARIO (
     cpf_funcionario INTEGER PRIMARY KEY NOT NULL,
@@ -49,4 +49,4 @@ CREATE TABLE FUNCIONARIO (
     CONSTRAINT fk_funcionario_estado FOREIGN KEY (id_estado) REFERENCES ESTADO(id_estado),
     CONSTRAINT fk_funcionario_cidade FOREIGN KEY (id_cidade) REFERENCES CIDADE(id_cidade),
     CONSTRAINT fk_funcionario_empresa FOREIGN KEY (id_empresa) REFERENCES EMPRESA(id_empresa)    
-)
+);
